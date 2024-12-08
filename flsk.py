@@ -11,10 +11,10 @@ def home():
     return render_template('index.html')
 
 @app.route('/submit',methods=['POST']) 
-def ship(): 
+async def ship(): 
     data = request.json
     t = time.time()
-    path_lat_lon1 = grid.a_star(data['start_latitude'], data['start_longitude'], data['end_latitude'], data['end_longitude'], 0, data['speed'], True)
+    path_lat_lon1 = await grid.a_star(data['start_latitude'], data['start_longitude'], data['end_latitude'], data['end_longitude'], 0, data['speed'], True, {})
     print('total time',time.time() - t)
     return json.dumps({'intermediete_points':path_lat_lon1})
 # running application 
